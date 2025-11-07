@@ -274,3 +274,32 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+
+function updateNavigation() {
+    const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
+    const currentUser = localStorage.getItem('currentUser');
+    const authSection = document.querySelector('.register-btn');
+
+    if (authSection) {
+        if (isLoggedIn && currentUser) {
+            // Show profile section
+            authSection.innerHTML = `
+                <div class="profile-section">
+                    <a href="profile.html" class="profile-link">
+                        <span class="profile-icon">👤</span>
+                        <span class="profile-name">${currentUser.split('@')[0]}</span>
+                    </a>
+                </div>`;
+        } else {
+            // Show login/register buttons
+            authSection.innerHTML = `
+                <a href="login.html" class="auth-btn">Login</a>
+                <a href="login.html#register" class="auth-btn" id="showRegisterNav">Register</a>`;
+        }
+    }
+
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    updateNavigation();
+});

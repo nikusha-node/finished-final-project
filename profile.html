@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Profile</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
       .profile-container {
         max-width: 800px;
@@ -168,6 +169,40 @@
 
       .burger-main {
         display: none;
+      }
+
+
+      .profile-section {
+        display: flex;
+        align-items: center;
+      }
+
+      .profile-link {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: white;
+        font-weight: 500;
+        padding: 5px 15px;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+      }
+
+      .profile-link:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+
+      .profile-icon {
+        font-size: 20px;
+        margin-right: 8px;
+      } 
+
+      .profile-name {
+        font-size: 14px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100px;
       }
 
 
@@ -411,11 +446,38 @@
     }
 });
 
+function updateNavigation() {
+    const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
+    const currentUser = localStorage.getItem('currentUser');
+    const authSection = document.querySelector('.register-btn');
 
-      // Initialize
+    if (authSection) {
+        if (isLoggedIn && currentUser) {
+            // Show profile section
+            authSection.innerHTML = `
+                <div class="profile-section">
+                    <a href="profile.html" class="profile-link">
+                        <span class="profile-icon">👤</span>
+                        <span class="profile-name">${currentUser.split('@')[0]}</span>
+                    </a>
+                </div>`;
+        } else {
+            // Show login/register buttons
+            authSection.innerHTML = `
+                <a href="login.html" class="auth-btn">Login</a>
+                <a href="login.html#register" class="auth-btn" id="showRegisterNav">Register</a>`;
+        }
+    }
+
+}
+
+
+
+
+
+      updateNavigation();
       loadCardInfo();
+      
     </script>
   </body>
-</html> -->
-
-
+</html>

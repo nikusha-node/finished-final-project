@@ -1,19 +1,3 @@
-// document.addEventListener('DOMContentLoaded', function () {
-//     // Update navigation based on auth status
-//     AuthService.updateNavigation();
-
-//     // Protect add to cart functionality
-//     document.addEventListener('click', function (e) {
-//         if (e.target.classList.contains('add-btn')) {
-//             if (!AuthService.isLoggedIn()) {
-//                 e.preventDefault();
-//                 AuthService.requireAuthForPurchase();
-//                 return false;
-//             }
-//         }
-//     });
-
-// });
 
  window.addEventListener("scroll", function () {
         const header = document.querySelector(".fixed");
@@ -24,45 +8,12 @@
         }
     });
 
-// Modify your existing addToCart function to include auth check
-function addToCart(product) {
-    if (!AuthService.isLoggedIn()) {
-        AuthService.requireAuthForPurchase();
-        return;
-    }
-
-    // Your existing add to cart logic here
-    const existingItem = cart.find(item => item.id === product.id);
-
-    if (existingItem) {
-        existingItem.quantity = (existingItem.quantity || 1) + 1;
-    } else {
-        const productCopy = { ...product };
-        productCopy.quantity = 1;
-        cart.push(productCopy);
-    }
-
-    updateCartCount();
-}
-
-
 // Update navigation on page load
 document.addEventListener('DOMContentLoaded', function () {
     // Update navigation based on auth status
     if (typeof AuthService !== 'undefined') {
         AuthService.updateNavigation();
     }
-
-    // Protect add to cart functionality
-    // document.addEventListener('click', function (e) {
-    //     if (e.target.classList.contains('add-btn')) {
-    //         if (!AuthService.isLoggedIn()) {
-    //             e.preventDefault();
-    //             AuthService.requireAuthForPurchase();
-    //             return false;
-    //         }
-    //     }
-    // });
 
     // Header scroll effect
     window.addEventListener("scroll", function () {
@@ -251,7 +202,7 @@ function renderProducts(products) {
         }
         const spicinessElement = clone.querySelector(".spicy");
         const spiciness = product.spiciness || 0;
-        spicinessElement.textContent = "🔥".repeat(spiciness) || "It's Not Spicy";
+        spicinessElement.textContent = "🔥".repeat(spiciness) || "Not Spicy";
 
         const addToCartBtn = clone.querySelector(".add-btn");
         addToCartBtn.addEventListener("click", () => {
@@ -340,8 +291,36 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+// ---------------------------- test
+
+// Update navigation based on authentication status
+function updateNavigation() {
+    const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
+    const currentUser = localStorage.getItem('currentUser');
+    const authSection = document.querySelector('.register-btn');
+
+    if (authSection) {
+        if (isLoggedIn && currentUser) {
+            // Show profile section
+            authSection.innerHTML = `
+                <div class="profile-section">
+                    <a href="profile.html" class="profile-link">
+                        <span class="profile-icon">👤</span>
+                        <span class="profile-name">${currentUser.split('@')[0]}</span>
+                    </a>
+                </div>`;
+        } else {
+            // Show login/register buttons
+            authSection.innerHTML = `
+                <a href="login.html" class="auth-btn">Login</a>
+                <a href="login.html#register" class="auth-btn" id="showRegisterNav">Register</a>`;
+        }
+    }
+
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     loadCategories();
     loadAllProducts();
+    updateNavigation();
 });

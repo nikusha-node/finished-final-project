@@ -25,18 +25,6 @@ if (showRegisterNav) {
     });
 }
 
-showRegister.addEventListener("click", (e) => {
-    e.preventDefault();
-    loginForm.classList.remove("active");
-    registerForm.classList.add("active");
-});
-
-
-showLogin.addEventListener("click", (e) => {
-    e.preventDefault();
-    registerForm.classList.remove("active");
-    loginForm.classList.add("active");
-});
 
 
 const showLoading = () => {
@@ -82,7 +70,7 @@ const showError = (message) => {
     return Promise.resolve();
 };
 
-// ✅ Show success function
+//  Show success function
 const showSuccess = (message, redirectUrl = null) => {
     // Close loading dialog if it's open
     if (Swal.isVisible()) {
@@ -105,7 +93,7 @@ const showSuccess = (message, redirectUrl = null) => {
     });
 };
 
-// ✅ LOGIN FORM SUBMIT
+// LOGIN FORM SUBMIT
 loginForm.onsubmit = (e) => {
     e.preventDefault();
     showLoading();
@@ -121,10 +109,10 @@ loginForm.onsubmit = (e) => {
 
     // Simulate API call delay
     setTimeout(() => {
-        // ✅ get all users
+        //  get all users
         const users = JSON.parse(localStorage.getItem("users")) || [];
 
-        // ✅ find matching user
+        //  find matching user
         const user = users.find((u) => u.email === email);
 
         if (!user) {
@@ -139,7 +127,7 @@ loginForm.onsubmit = (e) => {
             return;
         }
 
-        // ✅ Save session
+        //  Save session
         localStorage.setItem("loggedIn", "true");
         localStorage.setItem("currentUser", email);
         
@@ -147,27 +135,27 @@ loginForm.onsubmit = (e) => {
     }, 800);
 };
 
-// ✅ Validate email format
+//  Validate email format
 const isValidEmail = (email) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(email);
 };
 
-// ✅ Validate password strength
+//  Validate password strength
 const isStrongPassword = (password) => {
     // At least 8 characters, 1 uppercase, 1 lowercase, 1 number
     const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
     return re.test(password);
 };
 
-// ✅ Validate phone number
+//  Validate phone number
 const isValidPhone = (phone) => {
     // Basic phone validation - adjust as needed
     const re = /^[0-9\s\-()]+$/;
     return re.test(phone) && phone.replace(/[^0-9]/g, '').length >= 8;
 };
 
-// ✅ REGISTER FORM SUBMIT
+//  REGISTER FORM SUBMIT
 registerForm.addEventListener('submit', (e) => {
     e.preventDefault();
     showLoading();
@@ -206,10 +194,10 @@ registerForm.addEventListener('submit', (e) => {
 
     // Simulate API call delay
     setTimeout(() => {
-        // ✅ Load users array from localStorage
+        //  Load users array from localStorage
         let users = JSON.parse(localStorage.getItem("users")) || [];
 
-        // ✅ Check for existing email
+        //  Check for existing email
         const emailExists = users.some((u) => u.email === email);
 
         if (emailExists) {
@@ -218,7 +206,7 @@ registerForm.addEventListener('submit', (e) => {
             return;
         }
 
-        // ✅ Check for existing phone
+        //  Check for existing phone
         const phoneExists = users.some((u) => u.phone === fullPhone);
 
         if (phoneExists) {
@@ -227,7 +215,7 @@ registerForm.addEventListener('submit', (e) => {
             return;
         }
 
-        // ✅ Add new user
+        //  Add new user
         users.push({ 
             name, 
             phone: fullPhone, 
@@ -236,10 +224,10 @@ registerForm.addEventListener('submit', (e) => {
             createdAt: new Date().toISOString()
         });
 
-        // ✅ Save back to storage
+        //  Save back to storage
         localStorage.setItem("users", JSON.stringify(users));
 
-        // ✅ Save login session
+        //  Save login session
         localStorage.setItem("loggedIn", "true");
         localStorage.setItem("currentUser", email);
         
@@ -247,7 +235,7 @@ registerForm.addEventListener('submit', (e) => {
     }, 1000);
 });
 
-// ✅ REGISTER SUBMIT
+//  REGISTER SUBMIT
 registerForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -264,10 +252,10 @@ registerForm.addEventListener("submit", (e) => {
         return;
     }
 
-    // ✅ Load users array from localStorage
+    //  Load users array from localStorage
     let users = JSON.parse(localStorage.getItem("users")) || [];
 
-    // ✅ Check for existing email
+    //  Check for existing email
     const emailExists = users.some((u) => u.email === email);
 
     if (emailExists) {
@@ -275,7 +263,7 @@ registerForm.addEventListener("submit", (e) => {
         return;
     }
 
-    // ✅ Check for existing phone
+    // Check for existing phone
     const phoneExists = users.some((u) => u.phone === fullPhone);
 
     if (phoneExists) {
@@ -283,17 +271,17 @@ registerForm.addEventListener("submit", (e) => {
         return;
     }
 
-    // ✅ Add new user
+    //  Add new user
     users.push({ name, phone: fullPhone, email, password });
 
-    // ✅ Save back to storage
+    //  Save back to storage
     localStorage.setItem("users", JSON.stringify(users));
 
-    // ✅ Save login session
+    //  Save login session
     localStorage.setItem("loggedIn", "true");
     localStorage.setItem("currentUser", email);
 
-    // ✅ Redirect
+    //  Redirect
     window.location.href = "profile.html";
 });
 
@@ -320,3 +308,4 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
