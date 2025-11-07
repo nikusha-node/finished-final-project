@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Register - Step Ordering</title>
+    <link rel="stylesheet" href="login.css">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="fixed">
+            <div class="logo" onclick="window.location.href='index.html'">
+                <div class="logo-main">Step</div>
+                <div class="logo-sub">Ordering</div>
+            </div>
+            <div class="nav-rigth">
+                <a href="cart.html" class="cart-btn">
+                    <div class="cart-content">
+                        <span class="cart-text">Cart (0)</span>
+                        <span class="bike-icon">
+                            <img src="img/delivery-man (1).png" alt="Cart" width="24" height="24">
+                        </span>
+                    </div>
+                    <span class="line"></span>
+                </a>
+            </div>
+            <div class="register-btn">
+                <a href="login.html" class="auth-btn">Login</a> 
+                <a href="#" class="auth-btn" id="showRegisterNav">Register</a>
+            </div>
+            <div class="burger-main">
+                <div class="burger" id="burger"><i class="fa-solid fa-bars"></i></div>
+                <div class="nav" id="nav">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="cart.html">Cart</a></li>
+                        <li><a href="profile.html" id="mobileProfile">Profile</a></li>
+                        <li><a href="login.html" id="mobileLogin">Login</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="background-img"></div>
+    </header>
+
+    <main>
+        <div class="auth-container">
+            
+            <form id="loginForm" class="form active">
+                <h2>Welcome Back</h2>
+                
+                <input type="email" id="loginEmail" placeholder="Email" required>
+                <input type="password" id="loginPassword" placeholder="Password" required>
+                
+                <button type="submit">Login</button>
+                
+                <p>Don't have an account? <span class="toggle" id="showRegister">Register</span></p>
+            </form>
+
+            
+            <form id="registerForm" class="form">
+                <h2>Create Account</h2>
+                
+                <input type="text" id="regName" placeholder="Full Name" required>
+                <input type="email" id="regEmail" placeholder="Email" required>
+                
+                <div style="display: flex; gap: 10px;">
+                    <select id="countryCode" style="flex: 1;">
+                        <option value="+995">+995 (GEO)</option>
+                        <option value="+1">+1 (USA)</option>
+                        <option value="+44">+44 (UK)</option>
+                    </select>
+                    <input type="tel" id="regPhone" placeholder="Phone Number" required style="flex: 2;">
+                </div>
+                
+                <input type="password" id="regPassword" placeholder="Password" required>
+                <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+                
+                <button type="submit">Create Account</button>
+                
+                <p>Already have an account? <span class="toggle" id="showLogin">Login</span></p>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p class="footer-p">&copy; Step Ordering 2025, All rights reserved</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="login.js"></script>
+</body>
+</html>

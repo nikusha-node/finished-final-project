@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step Ordering</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    
+   <header class="header">
+        <nav class="fixed">
+            <div class="logo" onclick="window.location.href='index.html'">
+                <div class="logo-main">Step</div>
+                <div class="logo-sub">Ordering</div>
+            </div>
+            <div class="nav-rigth">
+                <a href="cart.html" class="cart-btn">
+                    <div class="cart-content">
+                        <span class="cart-text">Cart</span>
+                        <span class="bike-icon">
+                            <img src="img/delivery-man (1).png" alt="Cart" width="24" height="24">
+                        </span>
+                    </div>
+                    <span class="line"></span>
+                </a>
+            </div>
+            <div class="register-btn">
+                <a href="login.html" class="auth-btn">Login</a> 
+                <a href="#" class="auth-btn" id="showRegisterNav">Register</a>
+            </div>
+            <div class="burger-main">
+                <div class="burger" id="burger"><i class="fa-solid fa-bars"></i></div>
+                <div class="nav" id="nav">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="cart.html">Cart</a></li>
+                        <li><a href="profile.html" id="mobileProfile">Profile</a></li>
+                        <li><a href="login.html" id="mobileLogin">Login</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="background-img"></div>
+    </header>
+
+    <main>
+
+        <section class="category-main">
+                <div class="text1">
+                    <h1>category</h1>
+                </div>
+            <div class="category">
+                <div class="category-inline">
+                    
+                </div>
+            </div>
+
+        </section>
+
+        <section>
+             <div class="filter-box">
+                <div class="top-text">
+                    <h4>Filter</h4>
+                </div>
+                <div class="filter-range">
+                    <label for="" id="spiceLabel">Spiciness 🔥 : Not Chosen</label>
+                    <br>
+                    <input type="range" name="range" id="range" max="5" value="0">
+                </div>
+
+                <div class="check">
+                    <div>
+                        <input type="checkbox" name="" id="noNuts">
+                        <label for="">No Nuts 🥜</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="" id="vegeterian">
+                        <label for="">Vegeterian Only 🥦</label>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button id="resetBtn">RESET</button>
+                    <button id="applyBtn">APPLY FILTER</button>
+                </div>
+        </section>
+
+
+        <section class="product-section">
+            <template id="product-template">
+                <div class="product-card">
+                    <img class="product-img" src="" alt="">
+                    <h3 class="product-name"></h3>
+
+                    <div class="product-info">
+                        <span class="spicy"></span>
+                        <div>
+                            <span class="nuts"></span>
+                            <span class="vegeteriann"></span>
+                        </div>
+                    </div>
+
+                    <div class="bottomm">
+                        <span class="product-price"></span>
+                        <button class="add-btn">Add to cart</button>
+                    </div>
+                </div>
+            </template>
+
+            <div id="products" class="product-main"></div>
+        </section>
+    </main>
+
+
+    <footer>
+        <p class="footer-p">&copy; Step Ordering 2025, All right reserved</p>
+    </footer>
+
+    <script src="/script.js"></script>
+    <script src="/login.js"></script>
+</body>
+</html>

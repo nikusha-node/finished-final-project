@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="cart.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    
+    <header class="header">
+        <nav class="fixed">
+            <div class="logo" onclick="window.location.href='index.html'">
+                <div class="logo-main">Step</div>
+                <div class="logo-sub">Ordering</div>
+            </div>
+            <div class="nav-rigth">
+                <a href="cart.html" class="cart-btn">
+                    <div class="cart-content">
+                        <span class="cart-text">Cart</span>
+                        <span class="bike-icon">
+                            <img src="img/delivery-man (1).png" alt="Cart" width="24" height="24">
+                        </span>
+                    </div>
+                    <span class="line"></span>
+                </a>
+            </div>
+            <div class="register-btn">
+                <a href="login.html" class="auth-btn">Login</a> 
+                <a href="#" class="auth-btn" id="showRegisterNav">Register</a>
+            </div>
+            <div class="burger-main">
+                <div class="burger" id="burger"><i class="fa-solid fa-bars"></i></div>
+                <div class="nav" id="nav">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="cart.html">Cart</a></li>
+                        <li><a href="profile.html" id="mobileProfile">Profile</a></li>
+                        <li><a href="login.html" id="mobileLogin">Login</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="background-img"></div>
+    </header>
+
+    <main>
+        <div class="background-img1"></div>
+
+        <section class="section">
+            <a href="index.html">Home</a> / <span>Cart</span>
+        </section>
+
+        <section class="cart-wrapper">
+        <h2>Cart</h2>
+
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Name</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Spicy</th>
+                    <th>Nuts</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+
+            <tbody id="basketBody">
+                <template id="basketItemTemplate">
+                    <tr>
+                        <td><img class="item-image" width="50"></td>
+                        <td class="item-name"></td>
+                        <td class="item-price"></td>
+                        <td class="item-quantity"></td>
+                        <td class="item-spicy"></td>
+                        <td class="item-nuts"></td>
+                        <td><button class="delete-btn">X</button></td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+
+        <div class="checkout">
+            <p class="price">Total: <span id="price">$0</span></p>
+            <button class="checkout-btn">PROCEED TO CHECKOUT</button>
+        </div>
+    </section>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const showRegisterNav = document.getElementById('showRegisterNav');
+            
+            if (showRegisterNav) {
+                showRegisterNav.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.location.href = 'login.html#register';
+                });
+            }
+        });
+    </script>
+    <script src="/cart.js"></script>
+    <script src="/login.js"></script>
+    <script src="/ragaca.js"></script>
+</body>
+</html>

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+      .profile-container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .profile-header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+      }
+
+      .profile-info {
+        margin-bottom: 30px;
+      }
+
+      .profile-info p {
+        font-size: 16px;
+        margin: 10px 0;
+        color: #333;
+      }
+
+      .card-form {
+        background: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 30px;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+      }
+
+      .form-row {
+        display: flex;
+        gap: 15px;
+      }
+
+      .form-row .form-group {
+        flex: 1;
+      }
+
+      .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s;
+      }
+
+      .btn-primary {
+        background: #fd7a00;
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: #e06d00;
+      }
+
+      .btn-logout {
+        background: #dc3545;
+        color: white;
+        margin-top: 20px;
+        width: 100%;
+      }
+
+      .btn-logout:hover {
+        background: #c82333;
+      }
+
+      .saved-card {
+        background: #e8f5e9;
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 20px;
+        border-left: 4px solid #4caf50;
+      }
+
+      .saved-card p {
+        margin: 5px 0;
+        color: #2e7d32;
+      }
+
+      
+      .burger-main {
+        display: flex;
+        align-items: end;
+        justify-content: end;
+        z-index: 10;
+        position: relative;
+      }
+
+      .burger {
+        cursor: pointer;
+        font-size: 24px;
+        color: white;
+        padding: 10px;
+        transition: transform 0.3s;
+        z-index: 1000;
+      }
+
+      .burger.active {
+        transform: rotate(90deg);
+      }
+
+      .nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100vh;
+        background-color: rgb(253, 122, 0);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: right 1.2s ease;
+      }
+
+      .nav.active {
+        right: 0;
+      }
+
+      .nav ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .nav ul li a {
+        color: white;
+        text-decoration-line: none;
+        display: block;
+        padding: 12px 25px;
+        transition: all 0.3s;
+        font-size: 20px;
+      }
+
+      .nav ul li a:hover {
+        transform: scale(1.2);
+      }
+
+      .burger-main {
+        display: none;
+      }
+
+
+      @media (max-width: 750px) {
+    
+          .burger-main {
+              display: flex;
+          }
+        
+          .register-btn {
+              display: none;
+          }
+        
+          .nav-rigth {
+              display: none;
+          }
+
+      }
+    </style>
+  </head>
+  <body>
+
+    <header class="header">
+      <nav class="fixed">
+        <div class="logo" onclick="window.location.href='index.html'">
+          <div class="logo-main">Step</div>
+          <div class="logo-sub">Ordering</div>
+        </div>
+        <div class="nav-rigth">
+          <a href="cart.html" class="cart-btn">
+            <div class="cart-content">
+              <span class="cart-text">Cart (0)</span>
+              <span class="bike-icon">
+                <img src="img/delivery-man (1).png" alt="Cart" width="24"
+                  height="24">
+              </span>
+            </div>
+            <span class="line"></span>
+          </a>
+        </div>
+        <div class="register-btn">
+          <a href="login.html" class="auth-btn">Login</a>
+          <a href="#" class="auth-btn" id="showRegisterNav">Register</a>
+        </div>
+        <div class="burger-main">
+          <div class="burger" id="burger"><i class="fa-solid fa-bars"></i></div>
+          <div class="nav" id="nav">
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="cart.html">Cart</a></li>
+              <li><a href="profile.html" id="mobileProfile">Profile</a></li>
+              <li><a href="login.html" id="mobileLogin">Login</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div class="background-img"></div>
+    </header>
+
+    <div class="profile-container">
+      <div class="profile-header">
+        <h1 id="welcome"></h1>
+      </div>
+
+      <div class="profile-info">
+        <p><strong>Email:</strong> <span id="email"></span></p>
+        <p><strong>Phone:</strong> <span id="phone"></span></p>
+      </div>
+
+      <div class="card-form">
+        <h3>Payment Information</h3>
+        <div id="savedCardInfo" class="saved-card" style="display: none;">
+          <p><strong>Card ending in:</strong> <span
+              id="cardLastFour"></span></p>
+          <p><strong>Expires:</strong> <span id="cardExpiry"></span></p>
+          <button id="editCardBtn" class="btn btn-primary"
+            style="margin-top: 10px;">Edit Card</button>
+        </div>
+
+        <form id="cardForm" style="display: none;">
+          <div class="form-group">
+            <label for="cardNumber">Card Number</label>
+            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456"
+              maxlength="19">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="expiryDate">Expiry Date (MM/YY)</label>
+              <input type="text" id="expiryDate" placeholder="MM/YY"
+                maxlength="5">
+            </div>
+            <div class="form-group">
+              <label for="cvv">CVV</label>
+              <input type="text" id="cvv" placeholder="123" maxlength="3">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="cardName">Name on Card</label>
+            <input type="text" id="cardName" placeholder="John Doe">
+          </div>
+
+          <button type="submit" class="btn btn-primary">Save Card</button>
+          <button type="button" id="cancelEditBtn" class="btn"
+            style="margin-left: 10px;">Cancel</button>
+        </form>
+      </div>
+
+      <button id="logoutBtn" class="btn btn-logout">Log out</button>
+    </div>
+
+    <script>
+      // Check if user is logged in
+      const loggedIn = localStorage.getItem("loggedIn");
+      if (loggedIn !== "true") {
+        window.location.href = "login.html";
+      }
+
+      // Get current user data
+      const currentEmail = localStorage.getItem("currentUser");
+      const users = JSON.parse(localStorage.getItem("users")) || [];
+      const user = users.find((u) => u.email === currentEmail);
+
+      // Update profile info
+      document.getElementById("welcome").textContent = `Welcome, ${user.name || 'User'}`;
+      document.getElementById("email").textContent = user.email;
+      document.getElementById("phone").textContent = user.phone || 'Not provided';
+
+      // Card form elements
+      const cardForm = document.getElementById('cardForm');
+      const savedCardInfo = document.getElementById('savedCardInfo');
+      const editCardBtn = document.getElementById('editCardBtn');
+      const cancelEditBtn = document.getElementById('cancelEditBtn');
+
+      // Format card number with spaces
+      function formatCardNumber(value) {
+        return value.replace(/\s+/g, '').replace(/(\d{4})/g, '$1 ').trim();
+      }
+
+      // Format expiry date as MM/YY
+      function formatExpiryDate(value) {
+        return value.replace(/\D/g, '')
+          .replace(/^(\d{2})/, '$1/')
+          .replace(/^(\d{2}\d{2}).*/, '$1');
+      }
+
+      // Load saved card info
+      function loadCardInfo() {
+        if (user.cardInfo) {
+          document.getElementById('cardLastFour').textContent = `•••• ${user.cardInfo.cardNumber.slice(-4)}`;
+          document.getElementById('cardExpiry').textContent = user.cardInfo.expiryDate;
+          savedCardInfo.style.display = 'block';
+          cardForm.style.display = 'none';
+        } else {
+          savedCardInfo.style.display = 'none';
+          cardForm.style.display = 'block';
+        }
+      }
+
+      // Input event listeners for formatting
+      document.getElementById('cardNumber')?.addEventListener('input', (e) => {
+        e.target.value = formatCardNumber(e.target.value);
+      });
+
+      document.getElementById('expiryDate')?.addEventListener('input', (e) => {
+        e.target.value = formatExpiryDate(e.target.value);
+      });
+
+      // Form submission
+      cardForm?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const cardInfo = {
+          cardNumber: document.getElementById('cardNumber').value.replace(/\s+/g, ''),
+          expiryDate: document.getElementById('expiryDate').value,
+          cvv: document.getElementById('cvv').value,
+          cardName: document.getElementById('cardName').value
+        };
+
+        // Simple validation
+        if (cardInfo.cardNumber.length < 16 || cardInfo.expiryDate.length < 5 || cardInfo.cvv.length < 3) {
+          alert('Please fill in all card details correctly');
+          return;
+        }
+
+        // Save card info to user
+        user.cardInfo = cardInfo;
+        localStorage.setItem('users', JSON.stringify(users));
+        
+        // Update UI
+        loadCardInfo();
+      });
+
+      // Edit card button
+      editCardBtn?.addEventListener('click', () => {
+        savedCardInfo.style.display = 'none';
+        cardForm.style.display = 'block';
+        
+        // Fill form with existing data
+        if (user.cardInfo) {
+          document.getElementById('cardNumber').value = user.cardInfo.cardNumber;
+          document.getElementById('expiryDate').value = user.cardInfo.expiryDate;
+          document.getElementById('cvv').value = user.cardInfo.cvv;
+          document.getElementById('cardName').value = user.cardInfo.cardName || '';
+        }
+      });
+
+      // Cancel edit button
+      cancelEditBtn?.addEventListener('click', () => {
+        loadCardInfo();
+      });
+
+      // Logout button
+      document.getElementById("logoutBtn").onclick = () => {
+        localStorage.setItem("loggedIn", "false");
+        localStorage.removeItem("currentUser");
+        window.location.href = "login.html";
+      };
+
+      // Burger menu functionality
+      document.addEventListener('DOMContentLoaded', function () {
+        const burger = document.getElementById('burger');
+        const nav = document.getElementById('nav');
+
+        if (burger && nav) {
+          burger.addEventListener('click', (e) => {
+              e.stopPropagation();
+              nav.classList.toggle('active');
+              burger.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        const navLinks = document.querySelectorAll('.nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+                burger.classList.remove('active');
+            });
+        });
+    }
+});
+
+
+      // Initialize
+      loadCardInfo();
+    </script>
+  </body>
+</html> -->
+
+

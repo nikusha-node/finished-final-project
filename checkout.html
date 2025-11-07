@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Payment Page</title>
+    <!-- SweetAlert2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+    background-image: url('https://restaurant.stepprojects.ge/images/p_bg.jpg');
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 20px;
+    background-color: rgba(253, 122, 0, 0.911);
+    color: white;
+}
+
+/* Profile Section Styles */
+.profile-section {
+    display: flex;
+    align-items: center;
+}
+
+.profile-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    padding: 5px 15px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.profile-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.profile-icon {
+    font-size: 20px;
+    margin-right: 8px;
+}
+
+.profile-name {
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100px;
+}
+
+/* Adjust register button container */
+.register-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 130px;
+    padding: 3.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid transparent;
+    transition: background-color 0.3s ease, border-bottom 0.3s ease;
+    z-index: 1000;
+}
+
+.fixed.scrolled {
+  background-color: rgba(0, 0, 0, 0.8) ;
+  border-bottom: 1px solid rgba(253, 122, 0, 0.911);
+  box-shadow:0px 25px 20px -20px rgba(253, 122, 0, 0.911);
+}
+
+.logo-main {
+    font-size: 2.5rem;
+    letter-spacing: 1px;
+}
+
+.logo-sub {
+    font-size: 1.2rem;
+    padding-left: 50px;
+}
+
+.nav-rigth {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+}
+
+.nav-rigth a {
+    text-decoration-line: none;
+    color: white;
+    font-size: 1.3rem;
+}
+
+.cart-content {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.cart-btn {
+    padding: 0.7rem 1.2rem 0.7rem 1.5rem;
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 125px;
+    gap: 5px;
+    text-decoration: none;
+}
+
+.cart-text {
+    background: transparent;
+    border: 2px solid white;
+    min-width: 60px;
+    border-radius: 7px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 8px;
+    white-space: nowrap;
+}
+
+.header {
+    position: relative;
+}
+
+.auth-btn {
+    text-decoration-line: none;
+    color: rgb(255, 255, 255);
+    font-size: 1.3rem;
+    border: 2px solid rgb(255, 255, 255);
+    width: 120px;
+    text-align: center;
+    height: 30px;
+    border-radius: 7px;
+}
+
+.register-btn {
+    background-color: rgba(253, 122, 0, 0.911);
+    width: 300px;
+    height: 50px;
+    position: absolute;
+    top: 130px;
+    right: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding: 5px;
+    border-end-start-radius: 20px;
+}
+
+.register-btn .auth-btn:hover {
+    color: rgb(253, 122, 0);
+    background-color: white;
+    transition: 0.6s;
+}
+
+.bike-icon {
+    display: inline-block;
+    filter: brightness(0) invert(1);
+    transition: transform 0.6s ease-out;
+}
+
+.cart-btn:hover .bike-icon {
+    transform: translateX(15px);
+    transition: 0.6s;
+}
+
+.line {
+    position: absolute;
+    bottom: 57%;
+    left: 30px;
+    width: 100%;
+    height: 2px;
+    background: transparent;
+    pointer-events: none;
+}
+
+.line::after {
+    content: '';
+    position: absolute;
+    left: 90px;
+    top: 15px;
+    width: 0;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    transition: width 0.6s ease-out;
+}
+
+.cart-btn:hover .line::after {
+    width: 60px;
+}
+
+
+.background-img {
+    background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836') center/cover;
+    height: 600px;
+    width: 100%;
+}
+
+/* CHECKOUT */
+
+.checkout-section {
+      padding: 100px 20px 80px;
+      display: flex;
+      justify-content: center;
+      background: #f6f7fb;
+      min-height: 80vh;
+    background-image: url('https://restaurant.stepprojects.ge/images/p_bg.jpg');
+    }
+
+    .checkout-box {
+      background: white;
+      padding: 30px 40px 20px;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    .order-summary {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      border: 1px solid #e9ecef;
+    }
+
+    .order-summary h3 {
+      color: #333;
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+      border-bottom: 2px solid #e74c3c;
+      padding-bottom: 8px;
+    }
+
+    .order-items {
+      margin-bottom: 15px;
+    }
+
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #dee2e6;
+    }
+
+    .order-item:last-child {
+      border-bottom: none;
+    }
+
+    .item-name {
+      flex: 2;
+      color: #555;
+    }
+
+    .item-quantity {
+      flex: 1;
+      text-align: center;
+      color: #777;
+    }
+
+    .item-price {
+      flex: 1;
+      text-align: right;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .order-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 15px;
+      border-top: 2px solid #dee2e6;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .total-label {
+      color: #333;
+    }
+
+    .total-amount {
+      color: #e74c3c;
+      font-size: 1.4rem;
+    }
+
+    .checkout-form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .checkout-form label {
+      font-weight: 600;
+      color: #444;
+      margin-bottom: 6px;
+      font-size: 1.2rem;
+    }
+
+    .checkout-form input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      background: #fdfdfd;
+      transition: all 0.2s ease;
+    }
+
+    .checkout-form input:focus {
+      outline: none;
+      border-color: red;
+      box-shadow: 0 0 0 4px rgba(255, 0, 0, 0.15);
+      background: white;
+    }
+
+    .row {
+      display: flex;
+      gap: 18px;
+    }
+
+    .half {
+      flex: 1;
+    }
+
+    .pay-btn {
+      margin-top: 20px;
+      padding: 16px;
+      background: rgb(253, 122, 0);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .pay-btn:hover {
+      background: rgb(253, 122, 0);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(253, 122, 0, 0.911);
+    }
+    
+/* Responsive */
+@media (max-width: 768px) {
+  .header-middle h1 {
+    font-size: 3.8vw;
+  }
+  .checkout-section {
+    padding: 80px 15px;
+  }
+  .row {
+    flex-direction: column;
+  }
+}
+.footer {
+    background-color: #221c1c;
+    color: #fff;
+    padding: 40px 20px;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 18%;
+
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 20px;
+}
+
+.footer-logo {
+    flex: 1;
+    text-align: center;
+}
+
+.footer-logo-link {
+    text-decoration: none;
+    color: #fff;
+}
+
+.footer-logo-step {
+    font-size: 24px;
+    font-weight: bold;
+    color:  rgba(253, 122, 0, 0.911);
+    padding-right: 110px;
+}
+
+.footer-logo-restaurant {
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.footer-links {
+    flex: 1;
+    text-align: center;
+}
+
+.footer-links a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: rgba(253, 122, 0, 0.911);
+}
+
+.footer-social {
+    flex: 1;
+    text-align: center;
+}
+
+.footer-social p {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.social-icon {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+.footer-social {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-social p {
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    margin: 0;
+}
+
+.footer-social a {
+    text-decoration: none;
+}
+
+.footer-social .social-icon img {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.footer-social .social-icon img:hover {
+    transform: scale(1.2);
+    opacity: 0.8;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    border-top: 1px solid #444;
+    padding-top: 10px;
+}
+
+.footer-bottom span {
+    color: red;
+    font-size: 16px;
+}
+
+.footer-bottom p {
+    margin: 0;
+}
+
+
+.burger-main {
+    display: flex;
+    align-items: end;
+    justify-content: end;
+    z-index: 10;
+    position: relative;
+}
+
+.burger {
+    cursor: pointer;
+    font-size: 24px;
+    color: white;
+    padding: 10px;
+    transition: transform 0.3s;
+    z-index: 1000;
+}
+
+.burger.active {
+    transform: rotate(90deg);
+}
+
+.nav {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(253, 122, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: right 1.2s ease;
+}
+
+.nav.active {
+    right: 0;
+}
+
+.nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.nav ul li a {
+    color: white;
+    text-decoration-line: none;
+    display: block;
+    padding: 12px 25px;
+    transition: all 0.3s;
+    font-size: 20px;
+}
+
+.nav ul li a:hover {
+    transform: scale(1.2);
+}
+
+.burger-main {
+    display: none;
+}
+
+
+@media (max-width: 750px) {
+
+    .burger-main {
+        display: flex;
+    }
+
+    .register-btn {
+        display: none;
+    }
+
+    .nav-rigth {
+        display: none;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-logo,
+    .footer-links,
+    .footer-social {
+        text-align: center;
+    }
+    
+}
+  </style>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+     <header>
+        <nav class="fixed">
+            <div class="logo" onclick="window.location.href='index.html'">
+                <div class="logo-main">Step</div>
+                <div class="logo-sub">Ordering</div>
+            </div>
+            <div class="nav-rigth">
+                <a href="cart.html" class="cart-btn">
+                    <div class="cart-content">
+                        <span class="cart-text">Cart (0)</span>
+                        <span class="bike-icon">
+                        <img src="img/delivery-man (1).png" alt="Cart" width="24" height="24">
+                        </span>
+                    </div>
+                    <span class="line"></span>
+                </a>
+                <div class="user-profile" style="display: none;">
+                    <a href="profile.html" class="profile-link">
+                        <img src="" alt="Profile" class="profile-img" width="32" height="32">
+                        <span class="profile-name"></span>
+                    </a>
+                </div>
+                <div class="register-btn">
+                    <a href="login.html" class="auth-btn">Login</a> 
+                    <a href="#" class="auth-btn" id="showRegisterNav">Register</a>
+                </div>
+            </div>
+             <div class="burger-main">
+                <div class="burger" id="burger"><i class="fa-solid fa-bars"></i></div>
+                <div class="nav" id="nav">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="cart.html">Cart</a></li>
+                        <li><a href="profile.html" id="mobileProfile">Profile</a></li>
+                        <li><a href="login.html" id="mobileLogin">Login</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="background-img"></div>
+    </header>
+
+    <div class="header-placeholder"></div>
+
+    <!-- CHECKOUT -->
+    <section class="checkout-section">
+      <div class="checkout-box">
+        <!-- Order Summary -->
+        <div class="order-summary">
+          <h3>Order Summary</h3>
+          <div class="order-items" id="orderItems">
+            <!-- Order items will be dynamically inserted here -->
+          </div>
+          <div class="order-total">
+            <span class="total-label">Total Amount:</span>
+            <span class="total-amount" id="total-amount">0.00 ₾</span>
+          </div>
+        </div>
+
+        <form id="checkout-form" class="checkout-form" autocomplete="off">
+          <label for="card-number">Card number</label>
+          <input id="card-number" inputmode="numeric"
+            placeholder="2456 1665 5155 5151" maxlength="19" required>
+
+          <div class="row">
+            <div class="half">
+              <label for="expiry">Expiry date</label>
+              <input id="expiry" placeholder="MM/YY" maxlength="5" required>
+            </div>
+            <div class="half">
+              <label for="cvc">CVC / CVV</label>
+              <input id="cvc" inputmode="numeric" placeholder="3 digits"
+                maxlength="3" required>
+            </div>
+          </div>
+
+          <label for="owner">Cardholder name</label>
+          <input id="owner" placeholder="J. Smith" required>
+
+          <button id="pay-btn" class="pay-btn" type="submit">Pay Now</button>
+        </form>
+      </div>
+    </section>
+
+    <script src="login.js"></script>
+    <script>
+    // API endpoints
+    const BASKET_API_GET = "https://restaurant.stepprojects.ge/api/Baskets/GetAll";
+
+   window.addEventListener("scroll", function() {
+    const header = document.querySelector(".fixed");
+    if (window.scrollY > 0) {
+        header.classList.add("scrolled");
+    } else {
+        header.classList.remove("scrolled");
+    }
+});
+
+    loadOrderData();
+
+    // Load order data from basket API
+    async function loadOrderData() {
+      try {
+        const response = await fetch(BASKET_API_GET);
+        const cartItems = await response.json();
+
+        const orderItemsContainer = document.getElementById('orderItems');
+        const totalAmountElement = document.getElementById('total-amount');
+
+        if (!cartItems || cartItems.length === 0) {
+          orderItemsContainer.innerHTML = '<div class="order-item"><span class="item-name">Your cart is empty</span></div>';
+          totalAmountElement.textContent = '0.00 ₾';
+          return;
+        }
+
+        let total = 0;
+        orderItemsContainer.innerHTML = '';
+
+        // Merge same products by product.id
+        const mergedItems = {};
+        cartItems.forEach(item => {
+          if (!item.product) return;
+          const id = item.product.id;
+          if (!mergedItems[id]) {
+            mergedItems[id] = { ...item };
+          } else {
+            mergedItems[id].quantity += item.quantity || 1;
+          }
+        });
+
+        const mergedArray = Object.values(mergedItems);
+
+        mergedArray.forEach(item => {
+          const product = item.product;
+          const quantity = item.quantity || 1;
+          const itemTotal = (product.price || 0) * quantity;
+          total += itemTotal;
+
+          const orderItem = document.createElement('div');
+          orderItem.className = 'order-item';
+          orderItem.innerHTML = `
+            <span class="item-name">${product.name || 'Unnamed Item'}</span>
+            <span class="item-quantity">Qty: ${quantity}</span>
+            <span class="item-price">${itemTotal.toFixed(2)} ₾</span>
+          `;
+          orderItemsContainer.appendChild(orderItem);
+        });
+
+        totalAmountElement.textContent = `${total.toFixed(2)} ₾`;
+
+      } catch (error) {
+        console.error("Error loading order data:", error);
+        document.getElementById('orderItems').innerHTML = '<div class="order-item"><span class="item-name">Error loading order data</span></div>';
+        document.getElementById('total-amount').textContent = '0.00 ₾';
+      }
+    }
+
+    // Payment form functionality
+    const cardInput = document.getElementById("card-number");
+    const expiryInput = document.getElementById("expiry");
+    const cvcInput = document.getElementById("cvc");
+    const ownerInput = document.getElementById("owner");
+    const form = document.getElementById("checkout-form");
+
+    // Only numbers
+    function onlyNumbers(text) {
+      let result = "";
+      for (let i = 0; i < text.length; i++) {
+        if (text[i] >= "0" && text[i] <= "9") result += text[i];
+      }
+      return result;
+    }
+
+    // Card formatting
+    cardInput.addEventListener("input", function () {
+      let value = onlyNumbers(cardInput.value);
+      if (value.length > 16) value = value.substring(0, 16);
+      let formatted = "";
+      for (let i = 0; i < value.length; i++) {
+        formatted += value[i];
+        if ((i + 1) % 4 === 0 && i !== value.length - 1) formatted += " ";
+      }
+      cardInput.value = formatted;
+    });
+
+    // Expiry MM/YY
+    expiryInput.addEventListener("input", function () {
+      let value = onlyNumbers(expiryInput.value);
+      if (value.length > 4) value = value.substring(0, 4);
+      let formatted = "";
+      for (let i = 0; i < value.length; i++) {
+        formatted += value[i];
+        if (i === 1 && value.length > 2) formatted += "/";
+      }
+      expiryInput.value = formatted;
+    });
+
+    // CVC
+    cvcInput.addEventListener("input", function () {
+      let value = onlyNumbers(cvcInput.value);
+      if (value.length > 3) value = value.substring(0, 3);
+      cvcInput.value = value;
+    });
+
+    // trimSpaces
+    function trimSpaces(text) {
+      return text.trim();
+    }
+
+    // Validation functions
+    function validateCardNumber(card) {
+      const digitsOnly = onlyNumbers(card);
+      return digitsOnly.length === 16;
+    }
+
+    function validateExpiry(expiry) {
+      if (expiry.length !== 5 || expiry[2] !== "/") return false;
+
+      const parts = expiry.split("/");
+      const month = parseInt(parts[0]);
+      const year = parseInt(parts[1]);
+
+      if (month < 1 || month > 12) return false;
+
+      const currentYear = new Date().getFullYear() % 100;
+      const currentMonth = new Date().getMonth() + 1;
+
+      if (year < currentYear) return false;
+      if (year === currentYear && month < currentMonth) return false;
+
+      return true;
+    }
+
+    function validateCVC(cvc) {
+      return cvc.length === 3;
+    }
+
+    function validateOwner(owner) {
+      return owner.trim().length > 0;
+    }
+
+    // Form submission
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      let card = trimSpaces(cardInput.value);
+      let expiry = trimSpaces(expiryInput.value);
+      let cvc = trimSpaces(cvcInput.value);
+      let owner = trimSpaces(ownerInput.value);
+
+      if (!validateCardNumber(card)) {
+        Swal.fire({
+          icon: "error",
+          title: "Invalid card number!",
+          text: "Must be 16 digits",
+          confirmButtonColor: "#d33",
+        });
+        return;
+      }
+
+      if (!validateExpiry(expiry)) {
+        Swal.fire({
+          icon: "error",
+          title: "Invalid expiry date!",
+          text: "Format must be MM/YY and date must not be expired",
+          confirmButtonColor: "#d33",
+        });
+        return;
+      }
+
+      if (!validateCVC(cvc)) {
+        Swal.fire({
+          icon: "error",
+          title: "Invalid CVC!",
+          text: "Must be 3 digits",
+          confirmButtonColor: "#d33",
+        });
+        return;
+      }
+
+      if (!validateOwner(owner)) {
+        Swal.fire({
+          icon: "error",
+          title: "Please enter cardholder name!",
+          confirmButtonColor: "#d33",
+        });
+        return;
+      }
+
+      const totalAmount = document.getElementById('total-amount').textContent;
+
+      // Show loading
+      Swal.fire({
+        title: 'Processing payment...',
+        html: `Total: <strong>${totalAmount}</strong>`,
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
+
+      // Simulate payment processing
+      setTimeout(() => {
+        Swal.fire({
+          icon: "success",
+          title: "Payment successful! ✅",
+          html: `Thank you, ${owner}!<br>Your payment of <strong>${totalAmount}</strong> has been processed.`,
+          showConfirmButton: false,
+          timer: 2500,
+          timerProgressBar: true,
+        }).then(() => {
+          // Redirect to main page
+          window.location.href = "index.html";
+        });
+      }, 2000);
+    });
+  </script>
+  </body>
+
+</html>
